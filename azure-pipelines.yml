@@ -8,7 +8,7 @@ variables:
 
     azureServiceConnection: 'myServiceConnection'
     resourceGroupName: 'Bicep'
-    location: 'eastus'
+    location: 'canadacentral'
     templateFile: 'main.bicep'
 pool:
     vmImage: $(vmImageName)
