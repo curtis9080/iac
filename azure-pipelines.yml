@@ -7,7 +7,7 @@ variables:
     vmImageName: 'ubuntu-latest'
 
     azureServiceConnection: 'connect'
-    resourceGroupName: 'Bicep'
+    resourceGroupName: 'my_stuff'
     location: 'canadacentral'
     templateFile: 'gateway.bicep'
 pool:
