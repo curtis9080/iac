@@ -1,35 +1,49 @@
 trigger:
-    - main
+  - main
 
 name: Deploy Bicep files
 
 parameters:
-  - name: environment
-    displayName: Which Environment to deploy?
-    type: string
-    default: 'test'
-    values:
-    - test
-    - live
+- name: environment
+  displayName: Which Environment to deploy?
+  type: string
+  default: 'test'
+  values:
+  - test
+  - live
 
 
 variables:
-    vmImageName: 'ubuntu-latest'
+  - name: resourceGroupName
+    ${{ if eq( parameters['environment'], 'test') }}:
+      value: 'curtistestiac'
+    ${{ else }}:
+      value: 'curtisliveiac'
+  
+  - name : vmImageName
+    value: 'ubuntu-latest'
 
-    azureServiceConnection: 'connect'
-    resourceGroupName: 'my_stuff'
-    location: 'canadacentral'
-    templateFile: 'gateway.bicep'
+  - name: azureServiceConnection
+    ${{ if eq( parameters['environment'], 'test') }}:
+      value: 'curtistestconnect'
+    ${{ else }}:
+      value: 'curtisliveconnect'
+  
+  - name: templateFile
+    value: 'gateway.bicep'
+
 pool:
-    vmImage: $(vmImageName)
+  vmImage: $(vmImageName)
 
 steps:
-    - task: AzureCLI@2
-      inputs:
-          azureSubscription: $(azureServiceConnection)
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            az --version
-            az group create --name $(resourceGroupName) --location $(location)
-            az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile)
+  - task: AzureCLI@2
+    inputs:
+        azureSubscription: $(azureServiceConnection)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az --version
+          az group create --name $(resourceGroupName) --location $(location)
+          az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile)
+          az container restart --name curtisIacContainer1 --resource-group $(resourceGroupName)
+          az container restart --name curtisIacContainer2 --resource-group $(resourceGroupName)
