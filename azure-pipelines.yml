@@ -3,6 +3,16 @@ trigger:
 
 name: Deploy Bicep files
 
+parameters:
+  - name: environment
+    displayName: Which Environment to deploy?
+    type: string
+    default: 'test'
+    values:
+    - test
+    - live
+
+
 variables:
     vmImageName: 'ubuntu-latest'
 
