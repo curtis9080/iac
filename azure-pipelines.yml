@@ -45,5 +45,12 @@ steps:
           az --version
           az group create --name $(resourceGroupName) --location $(location)
           az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile)
+
+  - task: AzureCLI@2
+    inputs:
+        azureSubscription: $(azureServiceConnection)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
           az container restart --name curtisIacContainer1 --resource-group $(resourceGroupName)
           az container restart --name curtisIacContainer2 --resource-group $(resourceGroupName)
