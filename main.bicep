@@ -2,7 +2,7 @@
 param location string = resourceGroup().location
 
 @description('Name for the container group')
-param containerName string = 'curtisIacContainer'
+param containerName string = 'curtisiaccontainer'
 
 @description('The behavior of Azure runtime if container has stopped.')
 @allowed([
