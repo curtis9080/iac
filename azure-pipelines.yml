@@ -30,7 +30,7 @@ variables:
       value: 'curtisliveconnect'
   
   - name: templateFile
-    value: 'gateway.bicep'
+    value: 'main.bicep'
 
 pool:
   vmImage: $(vmImageName)
