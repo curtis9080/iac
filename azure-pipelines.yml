@@ -52,5 +52,5 @@ steps:
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
-          az container restart --name curtisIacContainer1 --resource-group $(resourceGroupName)
-          az container restart --name curtisIacContainer2 --resource-group $(resourceGroupName)
+          az container restart --name curtisiaccontainer1 --resource-group $(resourceGroupName)
+          az container restart --name curtisiaccontainer2 --resource-group $(resourceGroupName)
